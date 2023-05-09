@@ -1,0 +1,15 @@
+<div class="border">
+    <div *ngIf="taskList.length > 0 else emptyArray" class="margin">
+        <h1 class="heading">Task</h1>
+        <div class="border-list" *ngFor="let t of taskList">
+            <h2 class="margin"><span>{{ t.description }}</span></h2>
+            <i class="listformat"><span>{{ t.priority }}</span><span>{{ t.due | date:'MMM d' }}</span></i>
+        </div>
+    </div>
+    <br>
+</div>
+<ng-template #emptyArray>
+    <h2 class="margin">
+        List is empty
+    </h2>
+</ng-template>

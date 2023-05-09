@@ -1,0 +1,51 @@
+<h1 class="heading">ToDo</h1>
+<br>
+<form [formGroup]="toDoForm" (submit)="addTask()">
+    <table>
+        <tr>
+            <td>Description:</td>
+            <td>
+                <input type="text" size="30" placeholder="Description" 
+                    formControlName="description">
+                <span *ngIf="invalidField('description')">
+                    Have to be more than 5 char
+                </span>
+            </td>
+        </tr>
+        <tr>
+            <td>Priority:</td>
+            <td>
+                <div>
+                    <label for="High">
+                        High
+                    </label>
+                    <input type="radio" value="High" formControlName="priority">
+                    <label for="Medium">
+                        Medium
+                    </label>
+                    <input type="radio" value="Medium" formControlName="priority">
+                    <label for="Low">
+                        Low
+                    </label>
+                    <input type="radio" value="Low" formControlName="priority">
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>Due:</td>
+            <td>
+                <input type="datetime-local" formControlName="due">
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <button type="submit" [disabled]="toDoForm.get('due')?.hasError('invalidDueDate') 
+                    || invalidForm()">Add</button>
+                <div *ngIf="toDoForm.get('due')?.hasError('invalidDueDate')">
+                    Due date cannot be in the past
+                </div>
+            </td>
+        </tr>
+    </table>
+</form>

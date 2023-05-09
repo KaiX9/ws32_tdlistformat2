@@ -1,0 +1,21 @@
+.heading {
+    color: darkorange
+}
+
+.border {
+    border: 2px solid black
+}
+
+.border-list {
+    border: 1px solid black
+}
+
+.margin {
+    margin: 10px
+}
+
+.listformat {
+    margin: 10px; 
+    display: flex; 
+    justify-content:space-between;
+}
