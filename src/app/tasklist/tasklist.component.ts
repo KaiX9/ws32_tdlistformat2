@@ -9,6 +9,16 @@ import { Todo } from '../models';
 export class TasklistComponent {
 
   @Input()
-  taskList: Todo[] = []    
+  taskList: Todo[] = []
+  
+  completedTasks: Todo[] = []
+
+  deleteTask(i: number) {
+    this.taskList.splice(i, 1)
+  }
+
+  taskCompleted(t: Todo) {
+    this.completedTasks.push(t)
+  }
 
 }

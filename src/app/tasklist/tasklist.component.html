@@ -1,9 +1,18 @@
 <div class="border">
     <div *ngIf="taskList.length > 0 else emptyArray" class="margin">
         <h1 class="heading">Task</h1>
-        <div class="border-list" *ngFor="let t of taskList">
-            <h2 class="margin"><span>{{ t.description }}</span></h2>
-            <i class="listformat"><span>{{ t.priority }}</span><span>{{ t.due | date:'MMM d' }}</span></i>
+        <div class="border-list" *ngFor="let t of taskList; let i = index">
+            <h2 class="listformat" *ngIf="!completedTasks.includes(t)">
+                <span>{{ t.description }}</span>
+                <span>
+                    <button type="button" (click)="deleteTask(i)">X</button>
+                    <button type="button" (click)="taskCompleted(t)">Completed</button>
+                </span>
+            </h2>
+            <i class="listformat" *ngIf="!completedTasks.includes(t)">
+                <span>{{ t.priority }}</span>
+                <span>{{ t.due | date:'MMM d' }}</span>
+            </i>
         </div>
     </div>
     <br>
