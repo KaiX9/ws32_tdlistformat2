@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, inject } from '@angular/core';
+import { Component, Input, OnInit, Output, inject, OnChanges, SimpleChanges } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Todo } from '../models';
 import { Subject } from 'rxjs';
@@ -16,6 +16,16 @@ export class TodoComponent implements OnInit {
   ngOnInit(): void {
     this.toDoForm = this.createFormWithBuilder()
   }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    const c = changes['todo']
+    if (c.firstChange)
+      return
+    this.toDoForm = this.createEditedForm(this.todo)
+  }
+
+  @Input()
+  todo: Todo | null = null
 
   @Output()
   parseToList = new Subject<Todo>()
@@ -55,4 +65,13 @@ export class TodoComponent implements OnInit {
       due: this.fb.control<string>('', [ Validators.required, this.dueDateValidator() ])
     })
   }
+
+  private createEditedForm(t: Todo | null): FormGroup {
+    return this.fb.group({
+      description: this.fb.control<string>(!!t ? t.description : '', [ Validators.required, Validators.minLength(5) ]),
+      priority: this.fb.control<string>(!!t ? t.priority : 'Low'),
+      due: this.fb.control<string>(!!t ? t.due : '', [ Validators.required, this.dueDateValidator() ])
+    })
+  }
+
 }

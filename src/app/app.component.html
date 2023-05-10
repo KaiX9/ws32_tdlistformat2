@@ -1,4 +1,4 @@
-<app-todo (parseToList)="receiveList($event)"></app-todo>
+<app-todo (parseToList)="receiveList($event)" [todo]="todo"></app-todo>
 <br>
 <br>
-<app-tasklist [taskList]="todos"></app-tasklist>
+<app-tasklist [taskList]="todos" (onSelectedTask)="selectedTask($event)"></app-tasklist>
